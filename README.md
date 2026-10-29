@@ -1,4 +1,4 @@
-# Simple Restaurant Ordering System
+# Restaurant Ordering System
 
 Техническое задание и руководство команды по разработке Final Project для **Software Design Patterns**. Приложение оформляет ресторанный заказ через консоль и демонстрирует шесть согласованно работающих Design Patterns.
 

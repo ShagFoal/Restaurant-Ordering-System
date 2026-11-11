@@ -32,11 +32,18 @@ public final class Order {
     }
 
     public int getSubtotal() {
-        int subtotal = 0;
+        return calculateSubtotal(meals);
+    }
+
+    static int calculateSubtotal(List<Meal> meals) {
+        long subtotal = 0;
         for (Meal meal : meals) {
             subtotal += meal.getPrice();
         }
-        return subtotal;
+        if (subtotal > Integer.MAX_VALUE) {
+            throw new IllegalArgumentException("Order subtotal exceeds the supported amount.");
+        }
+        return (int) subtotal;
     }
 
     public void setStatus(OrderStatus newStatus) {

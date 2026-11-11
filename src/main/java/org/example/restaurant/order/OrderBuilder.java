@@ -38,14 +38,7 @@ public final class OrderBuilder {
             throw new IllegalArgumentException("Order must contain at least one meal.");
         }
 
-        long subtotal = 0;
-        for (Meal meal : meals) {
-            subtotal += meal.getPrice();
-        }
-        if (subtotal > Integer.MAX_VALUE) {
-            throw new IllegalArgumentException("Order subtotal exceeds the supported amount.");
-        }
-
+        Order.calculateSubtotal(meals);
         return new Order(customerName, meals, comment);
     }
 }

@@ -73,6 +73,8 @@ classDiagram
 
 `~` обозначает package-private конструктор `Order`. Builder и Product находятся в одном package. `getMeals()` возвращает неизменяемую копию списка, созданную при построении заказа. Каждый Product блюда имеет постоянное имя и цену.
 
+Расчет суммы и проверка ее диапазона сосредоточены в package-private static-методе `Order.calculateSubtotal(List<Meal>)`. Его используют `OrderBuilder.build()` до создания Product и `Order.getSubtotal()` при чтении суммы. Это общее правило модели заказа; отдельный класс для него не нужен.
+
 ## Sequence Diagram: создание заказа
 
 `Client` — роль вызывающего кода. На текущем этапе это ручной вызов в JShell; после интеграции выбор creators выполняет Main, а последовательность Builder — OrderFacade. Отдельный класс `Client` не требуется.
@@ -97,7 +99,9 @@ sequenceDiagram
     Client->>Builder: comment("Без лука")
     Builder-->>Client: тот же Builder
     Client->>Builder: build()
-    Note over Builder: проверка имени, блюд и диапазона subtotal
+    Note over Builder: проверка имени и непустого списка блюд
+    Builder->>Order: calculateSubtotal(meals), static
+    Order-->>Builder: сумма в допустимом диапазоне
     Builder->>Order: new Order(name, meals, comment)
     Note over Order: защитная копия List, начальный CREATED
     Order-->>Builder: новый Order

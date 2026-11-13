@@ -551,7 +551,7 @@ Restaurant-Ordering-System/
 │   ├── notification/
 │   │   ├── CustomerNotifier.java
 │   │   └── KitchenNotifier.java
-│   ├── payment/
+│   ├── adapter/
 │   │   ├── PaymentProcessor.java
 │   │   ├── LegacyPaymentSystem.java
 │   │   └── LegacyPaymentAdapter.java
@@ -616,7 +616,7 @@ flowchart TD
 | `order` | `OrderStatus`: ровно четыре значения из раздела 3 | Askhat, согласование с Danila |
 | `order` | `OrderObserver`: `void update(Order order)` | Danila |
 | `discount` | `DiscountStrategy`: `int calculateTotal(int subtotal)`, `String getName()` | Danila |
-| `payment` | `PaymentProcessor`: `boolean pay(int amount)` | Egor |
+| `adapter` | `PaymentProcessor`: `boolean pay(int amount)` | Egor |
 
 Interface-методы являются `public` по правилам Java; в реализующих классах доступ также `public`. `Meal.getName()` и `DiscountStrategy.getName()` возвращают непустые строки; цена `Meal` положительная и постоянная.
 
@@ -762,7 +762,7 @@ SOLID, Clean Code, KISS и DRY обязательны по Additional requiremen
 |---|---|---|
 | `meal/`, `factory/`, `OrderBuilder`, `OrderStatus`, основа `Order` | Askhat | Egor согласует использование в CLI и Facade; Danila — статусные методы |
 | `discount/`, `notification/`, `OrderObserver`, Observer-часть `Order` | Danila | Askhat согласует изменение общего Product; Egor подключает зависимости |
-| `payment/`, `facade/`, `Main`, `pom.xml`, `.gitignore` | Egor | Askhat и Danila проверяют вызовы своих контрактов |
+| `adapter/`, `facade/`, `Main`, `pom.xml`, `.gitignore` | Egor | Askhat и Danila проверяют вызовы своих контрактов |
 | UML и разделы Report по паттернам | Автор соответствующих паттернов | Перекрестная проверка всей командой |
 | Общий PDF, screenshots и исходный ZIP | Egor собирает итоговые файлы | Askhat и Danila проверяют свои разделы и общий пакет; каждый участник самостоятельно отправляет оба файла в Moodle |
 
@@ -938,7 +938,7 @@ import org.example.restaurant.factory.*;
 import org.example.restaurant.order.*;
 import org.example.restaurant.discount.*;
 import org.example.restaurant.notification.*;
-import org.example.restaurant.payment.*;
+import org.example.restaurant.adapter.*;
 import org.example.restaurant.facade.*;
 ```
 

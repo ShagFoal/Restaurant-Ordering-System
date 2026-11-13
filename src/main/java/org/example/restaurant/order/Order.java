@@ -1,5 +1,6 @@
 package org.example.restaurant.order;
 
+import java.util.ArrayList;
 import java.util.List;
 import org.example.restaurant.meal.Meal;
 
@@ -7,6 +8,7 @@ public final class Order {
     private final String customerName;
     private final List<Meal> meals;
     private final String comment;
+    private final List<OrderObserver> observers = new ArrayList<>();
     private OrderStatus status = OrderStatus.CREATED;
 
     Order(String customerName, List<Meal> meals, String comment) {
@@ -46,6 +48,30 @@ public final class Order {
         return (int) subtotal;
     }
 
+    public void addObserver(OrderObserver observer) {
+        if (observer == null) {
+            throw new IllegalArgumentException("Observer must not be null.");
+        }
+        for (OrderObserver currentObserver : observers) {
+            if (currentObserver == observer) {
+                return;
+            }
+        }
+        observers.add(observer);
+    }
+
+    public void removeObserver(OrderObserver observer) {
+        if (observer == null) {
+            throw new IllegalArgumentException("Observer must not be null.");
+        }
+        for (int i = 0; i < observers.size(); i++) {
+            if (observers.get(i) == observer) {
+                observers.remove(i);
+                return;
+            }
+        }
+    }
+
     public void setStatus(OrderStatus newStatus) {
         if (newStatus == null) {
             throw new IllegalArgumentException("Order status must not be null.");
@@ -66,5 +92,12 @@ public final class Order {
                     "Cannot change order status from " + status + " to " + newStatus + ".");
         }
         status = newStatus;
+        notifyObservers();
+    }
+
+    private void notifyObservers() {
+        for (OrderObserver observer : observers) {
+            observer.update(this);
+        }
     }
 }

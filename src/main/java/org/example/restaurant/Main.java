@@ -6,17 +6,17 @@ import java.util.Scanner;
 import org.example.restaurant.adapter.LegacyPaymentAdapter;
 import org.example.restaurant.adapter.LegacyPaymentSystem;
 import org.example.restaurant.adapter.PaymentProcessor;
-import org.example.restaurant.discount.DiscountStrategy;
-import org.example.restaurant.discount.NoDiscountStrategy;
-import org.example.restaurant.discount.StudentDiscountStrategy;
+import org.example.restaurant.builder.Order;
 import org.example.restaurant.facade.OrderFacade;
 import org.example.restaurant.factory.BurgerCreator;
 import org.example.restaurant.factory.MealCreator;
 import org.example.restaurant.factory.PizzaCreator;
-import org.example.restaurant.meal.Meal;
-import org.example.restaurant.notification.CustomerNotifier;
-import org.example.restaurant.notification.KitchenNotifier;
-import org.example.restaurant.order.Order;
+import org.example.restaurant.factory.product.Meal;
+import org.example.restaurant.observer.notification.CustomerNotifier;
+import org.example.restaurant.observer.notification.KitchenNotifier;
+import org.example.restaurant.strategy.DiscountStrategy;
+import org.example.restaurant.strategy.NoDiscountStrategy;
+import org.example.restaurant.strategy.StudentDiscountStrategy;
 
 public final class Main
 {

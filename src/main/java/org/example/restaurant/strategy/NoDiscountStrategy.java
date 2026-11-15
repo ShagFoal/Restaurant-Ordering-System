@@ -1,16 +1,16 @@
-package org.example.restaurant.discount;
+package org.example.restaurant.strategy;
 
-public final class StudentDiscountStrategy implements DiscountStrategy {
+public final class NoDiscountStrategy implements DiscountStrategy {
     @Override
     public int calculateTotal(int subtotal) {
         if (subtotal < 0) {
             throw new IllegalArgumentException("Subtotal must not be negative.");
         }
-        return (int) ((long) subtotal * 90 / 100);
+        return subtotal;
     }
 
     @Override
     public String getName() {
-        return "Student Discount";
+        return "No Discount";
     }
 }

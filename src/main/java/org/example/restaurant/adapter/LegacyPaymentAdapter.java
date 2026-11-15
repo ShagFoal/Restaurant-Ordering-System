@@ -17,6 +17,7 @@ public final class LegacyPaymentAdapter implements PaymentProcessor
     @Override
     public boolean pay(int amount)
     {
+        // The legacy service accepts amounts as text and reports approval with SUCCESS.
         String result = legacyPaymentSystem.makePayment(String.valueOf(amount));
         return "SUCCESS".equals(result);
     }

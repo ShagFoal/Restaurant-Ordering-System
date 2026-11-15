@@ -6,7 +6,7 @@
 
 В Restaurant Ordering System пользователь выбирает блюда, скидку и подтверждает заказ. Моя часть подключает имитацию старой платежной системы, объединяет компоненты через Facade и предоставляет консольный интерфейс.
 
-Factory Method и Builder реализовал Askhat; Strategy и Observer — Danila. Их готовые классы используются через согласованные контракты. Логика этих классов и их пакеты в данной части не изменяются.
+Factory Method и Builder реализовал Askhat; Strategy и Observer — Danila. Их готовые классы используются через согласованные контракты. При переносе классов по пакетам сохранились правила создания, скидок и уведомлений.
 
 ## Adapter
 
@@ -69,7 +69,7 @@ Facade упрощает использование подсистемы, сох�
 
 ## Проверка
 
-Проверено 13 ноября 2026 года. Сборка Maven и строгая компиляция `javac --release 17 -Xlint:all -Werror` прошли. Классы имеют версию байткода 61. Запуски выполнены на установленном JDK 25; отдельный запуск всей интегрированной версии на JDK 17 пока не выполнялся.
+Первую проверку провели 13 ноября 2026 года на JDK 25. После переноса классов 15 ноября заново собрали проект командой `mvn clean package` и проверили компиляцию с `javac --release 17 -Xlint:all -Werror`. Сценарии M1–M9 прошли на Java 17 и Java 25. При завершении ввода в каждой из 11 проверенных точек программа вышла без оплаты.
 
 | Проверка | Фактический результат |
 |---|---|
@@ -131,7 +131,7 @@ java -cp target/classes org.example.restaurant.Main
 | `c0cf9e2` | Add order facade; подключены исходные коммиты Danila с сохранением авторства |
 | `961cece` | Add console application |
 
-Работа продолжается в ветке `egor-adapter-facade`. [Репозиторий и ветка](https://github.com/ShagFoal/Restaurant-Ordering-System/tree/egor-adapter-facade).
+Разработка Adapter и Facade велась в ветке `egor-adapter-facade`. [Репозиторий и ветка](https://github.com/ShagFoal/Restaurant-Ordering-System/tree/egor-adapter-facade).
 
 ## UML и подготовка к защите
 
@@ -139,4 +139,26 @@ java -cp target/classes org.example.restaurant.Main
 
 На защите нужно показать несовместимые сигнатуры Target / Adaptee, преобразование `int → String → boolean`, передачу зависимостей в Facade, остановку при отказе оплаты и запрет повторного checkout. Затем запустить Main с двумя блюдами и Student Discount.
 
-Требование о шести пакетах по паттернам остается общим вопросом команды: текущая структура содержит пакеты по предметным областям. Его нужно согласовать до сдачи. Изменение пакетов других участников и общего README в данный фрагмент работы не входит.
+## Пакеты приложения
+
+В корне `org.example.restaurant` находится только `Main`. Классы распределены по шести пакетам паттернов.
+
+| Пакет | Роли и классы |
+|---|---|
+| `factory` | Создатели блюд. В `factory.product` находятся `Meal`, `Pizza` и `Burger`. |
+| `builder` | `OrderBuilder` собирает `Order`. Здесь же находится `OrderStatus`. Конструктор заказа доступен внутри пакета. |
+| `strategy` | `DiscountStrategy` и две реализации скидки. |
+| `observer` | Контракт `OrderObserver`. Реализации для покупателя и кухни находятся в `observer.notification`. |
+| `adapter` | `PaymentProcessor`, `LegacyPaymentAdapter` и `LegacyPaymentSystem`. |
+| `facade` | `OrderFacade` связывает создание заказа, скидку, оплату и смену статуса. |
+
+Для проверок M6–M9 в JShell после переноса используются следующие импорты.
+
+```java
+import org.example.restaurant.factory.*;
+import org.example.restaurant.builder.*;
+import org.example.restaurant.strategy.*;
+import org.example.restaurant.observer.notification.*;
+import org.example.restaurant.adapter.*;
+import org.example.restaurant.facade.*;
+```

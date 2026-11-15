@@ -1,4 +1,4 @@
-package org.example.restaurant.meal;
+package org.example.restaurant.factory.product;
 
 public final class Burger implements Meal {
     @Override

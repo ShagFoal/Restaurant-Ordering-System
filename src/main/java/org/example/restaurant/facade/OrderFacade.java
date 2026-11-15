@@ -2,12 +2,12 @@ package org.example.restaurant.facade;
 
 import java.util.List;
 import org.example.restaurant.adapter.PaymentProcessor;
-import org.example.restaurant.discount.DiscountStrategy;
-import org.example.restaurant.meal.Meal;
-import org.example.restaurant.order.Order;
-import org.example.restaurant.order.OrderBuilder;
-import org.example.restaurant.order.OrderObserver;
-import org.example.restaurant.order.OrderStatus;
+import org.example.restaurant.builder.Order;
+import org.example.restaurant.builder.OrderBuilder;
+import org.example.restaurant.builder.OrderStatus;
+import org.example.restaurant.factory.product.Meal;
+import org.example.restaurant.observer.OrderObserver;
+import org.example.restaurant.strategy.DiscountStrategy;
 
 public final class OrderFacade
 {
@@ -91,6 +91,7 @@ public final class OrderFacade
             throw new IllegalArgumentException("Order is required");
         }
 
+        // Check the status before payment to prevent charging a completed order twice.
         if (order.getStatus() != OrderStatus.CREATED)
         {
             throw new IllegalStateException("Order must be in CREATED status before checkout");

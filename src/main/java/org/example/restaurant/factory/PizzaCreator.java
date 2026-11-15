@@ -1,7 +1,7 @@
 package org.example.restaurant.factory;
 
-import org.example.restaurant.meal.Meal;
-import org.example.restaurant.meal.Pizza;
+import org.example.restaurant.factory.product.Meal;
+import org.example.restaurant.factory.product.Pizza;
 
 public final class PizzaCreator extends MealCreator {
     @Override

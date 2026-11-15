@@ -1,7 +1,7 @@
-package org.example.restaurant.notification;
+package org.example.restaurant.observer.notification;
 
-import org.example.restaurant.order.Order;
-import org.example.restaurant.order.OrderObserver;
+import org.example.restaurant.builder.Order;
+import org.example.restaurant.observer.OrderObserver;
 
 public final class CustomerNotifier implements OrderObserver {
     @Override

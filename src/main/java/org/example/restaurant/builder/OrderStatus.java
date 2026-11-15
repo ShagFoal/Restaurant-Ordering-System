@@ -1,4 +1,4 @@
-package org.example.restaurant.order;
+package org.example.restaurant.builder;
 
 public enum OrderStatus {
     CREATED,

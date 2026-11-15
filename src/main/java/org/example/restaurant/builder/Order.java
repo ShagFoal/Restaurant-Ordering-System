@@ -1,8 +1,9 @@
-package org.example.restaurant.order;
+package org.example.restaurant.builder;
 
 import java.util.ArrayList;
 import java.util.List;
-import org.example.restaurant.meal.Meal;
+import org.example.restaurant.factory.product.Meal;
+import org.example.restaurant.observer.OrderObserver;
 
 public final class Order {
     private final String customerName;

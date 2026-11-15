@@ -1,4 +1,4 @@
-package org.example.restaurant.meal;
+package org.example.restaurant.factory.product;
 
 public interface Meal {
     String getName();

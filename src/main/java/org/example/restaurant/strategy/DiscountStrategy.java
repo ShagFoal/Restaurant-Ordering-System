@@ -1,4 +1,4 @@
-package org.example.restaurant.discount;
+package org.example.restaurant.strategy;
 
 public interface DiscountStrategy {
     int calculateTotal(int subtotal);
